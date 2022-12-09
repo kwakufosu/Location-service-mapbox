@@ -18,7 +18,7 @@ export const srcGeocode = async (source) => {
     .send()
     .then((response) => {
       const match = response.body;
-      console.log(match);
+     
       return match.features;
     });
 
@@ -30,7 +30,7 @@ export const destGeocode = async (dest) => {
   
   const result = await geocodingService
     .forwardGeocode({
-      query: `${source}`,
+      query: `${dest}`,
       countries: ['GH'],
       limit: 1,
     })
@@ -40,6 +40,6 @@ export const destGeocode = async (dest) => {
        return match.features;
     });
 
-  return { result, dest };
+  return result;
 };
 
