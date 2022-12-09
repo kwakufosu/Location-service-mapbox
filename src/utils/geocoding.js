@@ -1,23 +1,23 @@
-const mbxClient = require('@mapbox/mapbox-sdk');
-const geocodingClient = require('@mapbox/mapbox-sdk/services/geocoding');
+import mbxClient from '@mapbox/mapbox-sdk';
+import geocodingClient from '@mapbox/mapbox-sdk/services/geocoding.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 const baseClient = mbxClient({ accessToken: process.env.MAPBOX_TOKEN });
 const geocodingService = geocodingClient(baseClient);
 
-//const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?proximity=ip&types=place%2Cpostcode%2Caddress&access_token=${process.env.MAPBOX_TOKEN}`;
-const geocode = async () => {
-  geocodingService
+export const geocode = async (source, dest) => {
+  const result = await geocodingService
     .forwardGeocode({
-      query: 'Paris, France',
+      query: `${source}, ${dest}`,
+      countries: ['GH'],
       limit: 2,
     })
     .send()
     .then((response) => {
       const match = response.body;
-      console.log(match);
-      return match;
+      return match.features;
     });
-};
 
-module.exports = geocode;
+  return result;
+};
