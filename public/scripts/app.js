@@ -1,6 +1,4 @@
-
-
-mapboxgl.accessToken =pubKey;
+mapboxgl.accessToken = pubKey;
 const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v12',
@@ -20,29 +18,33 @@ fetch('http://localhost:3000/data')
         coordinates: point,
       },
     }));
-    
 
     //load the route function
     map.on('load', function () {
-      console.log('Fe')
-      getRoute();
-
-    });
-
-    //get route takes start and end (lat,long)
-    function getRoute() {
-      
-      map.addLayer({
-        id: 'path',
-        type: 'circle',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: allPoints,
+      map.addSource('route', {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: data,
           },
         },
       });
-    }
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: 'route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#888',
+          'line-width': 8,
+        },
+      });
+    });
   })
   .catch((e) => console.log(e));
