@@ -8,7 +8,7 @@ const geocodingService = geocodingClient(baseClient);
 
 export const srcGeocode = async (source) => {
   source = source.trim().toLowerCase();
-  
+
   const result = await geocodingService
     .forwardGeocode({
       query: `${source}`,
@@ -18,7 +18,7 @@ export const srcGeocode = async (source) => {
     .send()
     .then((response) => {
       const match = response.body;
-     
+
       return match.features;
     });
 
@@ -26,8 +26,8 @@ export const srcGeocode = async (source) => {
 };
 
 export const destGeocode = async (dest) => {
-  dest= dest.trim().toLowerCase();
-  
+  dest = dest.trim().toLowerCase();
+
   const result = await geocodingService
     .forwardGeocode({
       query: `${dest}`,
@@ -37,9 +37,8 @@ export const destGeocode = async (dest) => {
     .send()
     .then((response) => {
       const match = response.body;
-       return match.features;
+      return match.features;
     });
 
   return result;
 };
-
