@@ -24,16 +24,6 @@ app.set('views', viewsPath);
 
 app.use(express.static(publicDirectoryPath));
 
-// const srcMeridian = await srcGeocode('spintex');
-// const [srcLongitude, srcLatitude] = srcMeridian[0].geometry.coordinates;
-
-// const destMeridian = await destGeocode('Tema');
-// const [destLongitude, destLatitude] = destMeridian[0].geometry.coordinates;
-
-// const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${srcLongitude},${srcLatitude};${destLongitude},${destLatitude}?alternatives=false&exclude=ferry&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${process.env.MAPBOX_TOKEN}`;
-
-// const fetchData = await axios.get(url);
-
 app.get('/data', async (req, res) => {
   // if (!req.query.start || req.query.end) {
   //   return res.send({
@@ -51,7 +41,7 @@ app.get('/data', async (req, res) => {
 
   try {
     const fetchData = await axios.get(url);
-    //console.log(fetchData.data.routes[0].geometry.coordinates);
+
     res.json(fetchData.data.routes[0].geometry.coordinates);
   } catch (e) {
     console.log(e);
