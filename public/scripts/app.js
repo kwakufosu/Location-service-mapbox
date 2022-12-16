@@ -11,14 +11,7 @@ fetch('http://localhost:3000/data')
     return response.json();
   })
   .then((data) => {
-    const allPoints = data.map((point) => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: point,
-      },
-    }));
-
+    
     //load the route function
     map.on('load', function () {
       map.addSource('route', {

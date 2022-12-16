@@ -8,6 +8,7 @@ import hbs from 'hbs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cors from 'cors';
+import coordinates from './utils/coordinates.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,10 +33,13 @@ app.get('/data', async (req, res) => {
   // }
 
   const srcMeridian = await srcGeocode('Tema');
-  const [srcLongitude, srcLatitude] = srcMeridian[0].geometry.coordinates;
+
+   const { Longitude: srcLongitude, Latitude: srcLatitude } =
+    coordinates(srcMeridian);
 
   const destMeridian = await destGeocode('Spintex');
-  const [destLongitude, destLatitude] = destMeridian[0].geometry.coordinates;
+  const { Longitude: destLongitude, Latitude: destLatitude } =
+    coordinates(destMeridian);
 
   const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${srcLongitude},${srcLatitude};${destLongitude},${destLatitude}?alternatives=false&exclude=ferry&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${process.env.MAPBOX_TOKEN}`;
 
