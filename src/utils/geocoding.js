@@ -7,7 +7,7 @@ const baseClient = mbxClient({ accessToken: process.env.MAPBOX_TOKEN });
 const geocodingService = geocodingClient(baseClient);
 
 export const srcGeocode = async (source) => {
-  source = source.trim().toLowerCase();
+  source = source.trim().toUpperCase();
 
   const result = await geocodingService
     .forwardGeocode({
@@ -18,6 +18,7 @@ export const srcGeocode = async (source) => {
     .send()
     .then((response) => {
       const match = response.body;
+      console.log(response.body);
 
       return match.features;
     });
@@ -42,3 +43,4 @@ export const destGeocode = async (dest) => {
 
   return result;
 };
+

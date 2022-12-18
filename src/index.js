@@ -3,12 +3,12 @@ import dotenv from 'dotenv';
 import path from 'path';
 dotenv.config();
 import axios from 'axios';
-import { srcGeocode, destGeocode } from './utils/geocoding.js';
 import hbs from 'hbs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cors from 'cors';
-import coordinates from './utils/coordinates.js';
+import { srcGeocode, destGeocode } from './utils/geocoding.js';
+import  coordinates from './utils/coordinates.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,6 +25,7 @@ app.set('views', viewsPath);
 
 app.use(express.static(publicDirectoryPath));
 
+
 app.get('/data', async (req, res) => {
   // if (!req.query.start || req.query.end) {
   //   return res.send({
@@ -34,12 +35,13 @@ app.get('/data', async (req, res) => {
 
   const srcMeridian = await srcGeocode('Tema');
 
-   const { Longitude: srcLongitude, Latitude: srcLatitude } =
-    coordinates(srcMeridian);
+  const { Longitude: srcLongitude, Latitude: srcLatitude } =   coordinates(srcMeridian);
 
   const destMeridian = await destGeocode('Spintex');
   const { Longitude: destLongitude, Latitude: destLatitude } =
     coordinates(destMeridian);
+
+    console.log(srcLongitude,srcLatitude,destLongitude,destLatitude)
 
   const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${srcLongitude},${srcLatitude};${destLongitude},${destLatitude}?alternatives=false&exclude=ferry&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${process.env.MAPBOX_TOKEN}`;
 
