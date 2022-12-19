@@ -8,10 +8,11 @@ const map = new mapboxgl.Map({
 
 fetch('http://localhost:3000/data')
   .then((response) => {
+   
     return response.json();
   })
   .then((data) => {
-    
+    console.log(data)
     //load the route function
     map.on('load', function () {
       map.addSource('route', {
@@ -21,7 +22,7 @@ fetch('http://localhost:3000/data')
           properties: {},
           geometry: {
             type: 'LineString',
-            coordinates: data,
+            coordinates: data.coordinates,
           },
         },
       });

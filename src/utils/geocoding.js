@@ -18,7 +18,6 @@ export const srcGeocode = async (source) => {
     .send()
     .then((response) => {
       const match = response.body;
-      console.log(response.body);
 
       return match.features;
     });
@@ -43,4 +42,3 @@ export const destGeocode = async (dest) => {
 
   return result;
 };
-

@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cors from 'cors';
 import { srcGeocode, destGeocode } from './utils/geocoding.js';
-import  coordinates from './utils/coordinates.js';
+import coordinates from './utils/coordinates.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,7 +25,6 @@ app.set('views', viewsPath);
 
 app.use(express.static(publicDirectoryPath));
 
-
 app.get('/data', async (req, res) => {
   // if (!req.query.start || req.query.end) {
   //   return res.send({
@@ -35,20 +34,22 @@ app.get('/data', async (req, res) => {
 
   const srcMeridian = await srcGeocode('Tema');
 
-  const { Longitude: srcLongitude, Latitude: srcLatitude } =   coordinates(srcMeridian);
+  const { Longitude: srcLongitude, Latitude: srcLatitude } =
+    coordinates(srcMeridian);
 
   const destMeridian = await destGeocode('Spintex');
   const { Longitude: destLongitude, Latitude: destLatitude } =
     coordinates(destMeridian);
 
-    console.log(srcLongitude,srcLatitude,destLongitude,destLatitude)
-
   const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${srcLongitude},${srcLatitude};${destLongitude},${destLatitude}?alternatives=false&exclude=ferry&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${process.env.MAPBOX_TOKEN}`;
 
   try {
     const fetchData = await axios.get(url);
-
-    res.json(fetchData.data.routes[0].geometry.coordinates);
+    // console.log(fetchData.data.routes[0].legs[0].steps);
+    res.json({
+      coordinates: fetchData.data.routes[0].geometry.coordinates,
+      steps: fetchData.data.routes[0].legs[0].steps,
+    });
   } catch (e) {
     console.log(e);
   }
