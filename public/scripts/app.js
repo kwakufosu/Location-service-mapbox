@@ -8,11 +8,10 @@ const map = new mapboxgl.Map({
 
 fetch('http://localhost:3000/data')
   .then((response) => {
-   
     return response.json();
   })
   .then((data) => {
-    console.log(data)
+    console.log(data);
     //load the route function
     map.on('load', function () {
       map.addSource('route', {
@@ -39,6 +38,17 @@ fetch('http://localhost:3000/data')
           'line-width': 8,
         },
       });
+      // get the sidebar and add the instructions
+      const instructions = document.getElementById('instructions');
+      const steps = data.steps;
+
+      let tripInstructions = '';
+      for (const step of steps) {
+        tripInstructions += `<li>${step.maneuver.instruction}</li>`;
+      }
+      instructions.innerHTML = `<p><strong>Trip duration: ${Math.floor(
+        data.duration / 60
+      )} min 🚘 </strong></p><ol>${tripInstructions}</ol>`;
     });
   })
   .catch((e) => console.log(e));
