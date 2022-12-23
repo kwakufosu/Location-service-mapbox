@@ -45,10 +45,11 @@ app.get('/data', async (req, res) => {
 
   try {
     const fetchData = await axios.get(url);
-    // console.log(fetchData.data.routes[0].legs[0].steps);
+    // console.log(fetchData.data);
     res.json({
       coordinates: fetchData.data.routes[0].geometry.coordinates,
       steps: fetchData.data.routes[0].legs[0].steps,
+      duration: fetchData.data.routes[0].duration,
     });
   } catch (e) {
     console.log(e);
