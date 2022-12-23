@@ -11,7 +11,10 @@ fetch('http://localhost:3000/data')
     return response.json();
   })
   .then((data) => {
-    console.log(data);
+    map.flyTo({
+      center: data.coordinates[0],
+      essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+    });
     //load the route function
     map.on('load', function () {
       map.addSource('route', {
