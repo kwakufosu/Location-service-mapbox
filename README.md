@@ -21,4 +21,4 @@ Type your source and destination and submit.
 The locations have been resticted to Ghana. To get the appropriate result type your locations like this: "nameofcity Region Ghana "  
 Eg. "Spintex Accra Ghana"
 
-#Images
+# Images
