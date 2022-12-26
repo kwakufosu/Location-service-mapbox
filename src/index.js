@@ -15,6 +15,13 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.port || 3000;
 
+//global  variables
+let field1, field2;
+//Parsing middleware
+app.use(express.urlencoded({ extended: true }));
+
+//Parse application as JSON
+app.use(express.json());
 const publicDirectoryPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
 app.use(cors());
@@ -25,19 +32,18 @@ app.set('views', viewsPath);
 
 app.use(express.static(publicDirectoryPath));
 
+app.post('/data', async (req, res) => {
+  field1 = req.body.field1;
+  field2 = req.body.field2;
+});
+
 app.get('/data', async (req, res) => {
-  // if (!req.query.start || req.query.end) {
-  //   return res.send({
-  //     error: 'You must provide the required info',
-  //   });
-  // }
-
-  const srcMeridian = await srcGeocode('Tema');
-
+  const srcMeridian = await srcGeocode(field1);
+  console.log(field1);
   const { Longitude: srcLongitude, Latitude: srcLatitude } =
     coordinates(srcMeridian);
 
-  const destMeridian = await destGeocode('Spintex');
+  const destMeridian = await destGeocode(field2);
   const { Longitude: destLongitude, Latitude: destLatitude } =
     coordinates(destMeridian);
 

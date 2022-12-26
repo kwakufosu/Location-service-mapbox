@@ -6,7 +6,7 @@ dotenv.config();
 const baseClient = mbxClient({ accessToken: process.env.MAPBOX_TOKEN });
 const geocodingService = geocodingClient(baseClient);
 
-export const srcGeocode = async (source) => {
+export const srcGeocode = async (source = 'Spintex') => {
   source = source.trim().toUpperCase();
 
   const result = await geocodingService
@@ -25,7 +25,7 @@ export const srcGeocode = async (source) => {
   return result;
 };
 
-export const destGeocode = async (dest) => {
+export const destGeocode = async (dest = 'Tema') => {
   dest = dest.trim().toLowerCase();
 
   const result = await geocodingService

@@ -23,8 +23,17 @@
   <body>
     <div id='map'></div>
     <div id='instructions'></div>
+    <div style='position: absolute; top: 0; right: 0;'>
 
+      <form action='/data' method='POST'>
+        <input type='text' id='src' name='field1' placeholder='Source' />
+        <input type='text' name='field2' placeholder='Destination' />
+
+        <button type='submit'>Submit</button>
+      </form>
+    </div>
     <script src='./scripts/config.js'></script>
     <script src='./scripts/app.js'></script>
+
   </body>
 </html>
