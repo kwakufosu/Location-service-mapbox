@@ -18,7 +18,7 @@ The tutorials provided by the MapBox documentaion use only client-side javascrip
 
 # Usage
 Type your source and destination and submit.
-The locations have been resticted to Ghana. To get the appropriate result type your locations like this: "nameofcity Region Ghana "  
+The locations have been resticted to Ghana. To get the appropriate result, you may have to refine your search terms.An example is given below  
 Eg. "Spintex Accra Ghana"
 
 # Images
