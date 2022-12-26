@@ -1,4 +1,4 @@
-# MAPBOX API PRROJECT
+# MAPBOX API PROJECT
 
 A project built with the MapBox API to explore how location services work.
 
@@ -22,3 +22,5 @@ The locations have been resticted to Ghana. To get the appropriate result, you m
 Eg. "Spintex Accra Ghana"
 
 # Images
+![Screenshot (212)](https://user-images.githubusercontent.com/79140311/209553295-2e36806a-10b0-4752-aa96-d11acef0b321.png)
+![Screenshot (213)](https://user-images.githubusercontent.com/79140311/209553300-f6a2894d-cbde-4a09-888c-ae0c2f854288.png)
