@@ -32,14 +32,9 @@ app.set('views', viewsPath);
 
 app.use(express.static(publicDirectoryPath));
 
-app.post('/data', async (req, res) => {
-  field1 = req.body.field1;
-  field2 = req.body.field2;
-});
-
 app.get('/data', async (req, res) => {
   const srcMeridian = await srcGeocode(field1);
-  console.log(field1);
+
   const { Longitude: srcLongitude, Latitude: srcLatitude } =
     coordinates(srcMeridian);
 
@@ -63,6 +58,8 @@ app.get('/data', async (req, res) => {
 });
 
 app.get('/map', (req, res) => {
+  field1 = req.query.field1;
+  field2 = req.query.field2;
   res.render('main.hbs');
 });
 
